@@ -1,0 +1,86 @@
+# Jeux d'équipes. Chaque jeu définit la question d'accroche, le nombre d'équipes tirées
+# au sort (min/max) et la liste des équipes possibles.
+#
+# Motifs de « drapeau » (formes simples dessinées en code, aucun logo) :
+#   v      bandes verticales           h      bandes horizontales
+#   croix  croix centrée (couleur 2 sur fond couleur 1)
+#   nordique  croix décalée (couleur 2 sur fond 1, liseré optionnel couleur 3)
+#   uni    une seule couleur            moitie  deux moitiés diagonales
+# `poids` (optionnel) donne la largeur relative des bandes.
+# `balles` (optionnel, défaut 1) : nombre de balles de l'équipe ; `rayon` (optionnel) ;
+# `quota` (optionnel, défaut 1) : nombre de balles qui doivent franchir l'arrivée pour que
+# l'équipe soit « arrivée ».
+# `sections` (optionnel, par jeu) : sections de parcours autorisées. Une foule de balles
+# s'embouteille sur les rampes/tapis/entonnoirs/portes : on les exclut pour ce mode.
+# `longueur` (optionnel, par jeu, défaut 1) : multiplicateur de la longueur du parcours.
+
+[jeux.pays]
+question = ["QUEL PAYS ARRIVE", "EN BAS EN PREMIER ?"]
+min = 3
+max = 6
+equipes = [
+  { nom = "FRANCE",     motif = "v", couleurs = ["#0055A4", "#FFFFFF", "#EF4135"] },
+  { nom = "ITALIE",     motif = "v", couleurs = ["#009246", "#FFFFFF", "#CE2B37"] },
+  { nom = "ESPAGNE",    motif = "h", couleurs = ["#AA151B", "#F1BF00", "#AA151B"], poids = [1, 2, 1] },
+  { nom = "ALLEMAGNE",  motif = "h", couleurs = ["#000000", "#DD0000", "#FFCE00"] },
+  { nom = "BELGIQUE",   motif = "v", couleurs = ["#000000", "#FDDA24", "#EF3340"] },
+  { nom = "PAYS-BAS",   motif = "h", couleurs = ["#AE1C28", "#FFFFFF", "#21468B"] },
+  { nom = "PORTUGAL",   motif = "v", couleurs = ["#006600", "#FF0000"], poids = [2, 3] },
+  { nom = "SUISSE",     motif = "croix", couleurs = ["#DA291C", "#FFFFFF"] },
+  { nom = "SUÈDE",      motif = "nordique", couleurs = ["#006AA7", "#FECC00"] },
+  { nom = "DANEMARK",   motif = "nordique", couleurs = ["#C8102E", "#FFFFFF"] },
+  { nom = "NORVÈGE",    motif = "nordique", couleurs = ["#BA0C2F", "#FFFFFF", "#00205B"] },
+  { nom = "POLOGNE",    motif = "h", couleurs = ["#FFFFFF", "#DC143C"] },
+  { nom = "IRLANDE",    motif = "v", couleurs = ["#169B62", "#FFFFFF", "#FF883E"] },
+  { nom = "AUTRICHE",   motif = "h", couleurs = ["#ED2939", "#FFFFFF", "#ED2939"] },
+  { nom = "UKRAINE",    motif = "h", couleurs = ["#0057B7", "#FFD700"] },
+  { nom = "HONGRIE",    motif = "h", couleurs = ["#CD2A3E", "#FFFFFF", "#436F4D"] },
+]
+
+[jeux.villes]
+question = ["QUELLE VILLE", "GAGNE LA COURSE ?"]
+min = 3
+max = 6
+# Couleurs simples associées aux villes (aucune armoirie ni logo de club).
+equipes = [
+  { nom = "PARIS",      motif = "v", couleurs = ["#1B3F8B", "#E2231A"] },
+  { nom = "LYON",       motif = "h", couleurs = ["#E2231A", "#FFFFFF"] },
+  { nom = "MARSEILLE",  motif = "croix", couleurs = ["#FFFFFF", "#0F6FC6"] },
+  { nom = "ANNECY",     motif = "h", couleurs = ["#3FB8E8", "#FFFFFF", "#3FB8E8"] },
+  { nom = "BORDEAUX",   motif = "uni", couleurs = ["#7B1E3A"] },
+  { nom = "LILLE",      motif = "moitie", couleurs = ["#D7262E", "#FFFFFF"] },
+  { nom = "TOULOUSE",   motif = "h", couleurs = ["#7A3E9D", "#FFFFFF"] },
+  { nom = "NICE",       motif = "v", couleurs = ["#E30613", "#111111"] },
+  { nom = "NANTES",     motif = "h", couleurs = ["#FFD200", "#0B8F3A"] },
+  { nom = "STRASBOURG", motif = "moitie", couleurs = ["#FFFFFF", "#D61F26"] },
+  { nom = "RENNES",     motif = "v", couleurs = ["#111111", "#FFFFFF", "#111111"] },
+  { nom = "MONTPELLIER", motif = "h", couleurs = ["#F08A1D", "#1C3E7A"] },
+]
+
+[jeux.couleurs]
+question = ["QUELLE COULEUR", "ARRIVE EN PREMIER ?"]
+min = 3
+max = 6
+equipes = [
+  { nom = "ROUGE",  motif = "uni", couleurs = ["#E53935"] },
+  { nom = "BLEU",   motif = "uni", couleurs = ["#1E88E5"] },
+  { nom = "VERT",   motif = "uni", couleurs = ["#43A047"] },
+  { nom = "JAUNE",  motif = "uni", couleurs = ["#FDD835"] },
+  { nom = "VIOLET", motif = "uni", couleurs = ["#8E24AA"] },
+  { nom = "ORANGE", motif = "uni", couleurs = ["#FB8C00"] },
+  { nom = "ROSE",   motif = "uni", couleurs = ["#EC407A"] },
+  { nom = "BLANC",  motif = "uni", couleurs = ["#F5F5F5"] },
+]
+
+[jeux.un_contre_cent]
+# LA BALLE gagne si elle arrive avant que les 100 soient TOUTES arrivées.
+question = ["1 BALLE CONTRE 100", "LES 100 ARRIVERONT-ELLES TOUTES AVANT ELLE ?"]
+min = 2
+max = 2
+sections = ["picots", "barres", "bumpers"]
+longueur = 1.45     # ces sections sont plus rapides : parcours plus long pour rester à 65-90 s
+equipes = [
+  # rayon 34 : équilibré (~50 % de victoires mesurées sur 12 seeds)
+  { nom = "LA BALLE", motif = "moitie", couleurs = ["#FFD54F", "#FF6F00"], balles = 1, rayon = 34 },
+  { nom = "LES 100",  motif = "uni", couleurs = ["#4FC3F7"], balles = 100, rayon = 14, quota = 100 },
+]

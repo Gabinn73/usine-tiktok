@@ -37,3 +37,12 @@ class Encoder:
             self.close()
         else:
             self.proc.kill()
+
+
+def mux(video_path, wav_path, out_path):
+    """Assemble la vidéo (copiée telle quelle) et la bande-son (AAC 192 kb/s)."""
+    subprocess.run([
+        "ffmpeg", "-y", "-loglevel", "error", "-i", str(video_path), "-i", str(wav_path),
+        "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+        "-shortest", "-movflags", "+faststart", str(out_path),
+    ], check=True)
